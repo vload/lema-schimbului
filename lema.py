@@ -59,18 +59,6 @@ def esalon(array):
         i = i + 1
     return array
 
-def get_non_zero_indices(esalon):
-    pass
-
-
-test = [
-    [-1, 2, -1],
-    [2, -1, 1],
-    [1, 4, -1],
-    [5, 2, 3]
-]
-print(esalon(test))
-
 if(__name__ == "__main__"):
     print(__doc__)
 
