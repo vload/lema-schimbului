@@ -30,10 +30,12 @@ w2
 ws
 """
 
+from copy import deepcopy
+
 def esalon(array):
     i = 0
     solved = 0
-    while solved < len(array[i]):
+    while i < len(array) and solved < len(array[i]):
         for j in range(solved, len(array[i])):
             if array[i][j] != 0:
                 if j is not solved:                          #interschimbarea liniilor
@@ -50,13 +52,24 @@ def esalon(array):
                         factor = array[i][l]
                         if factor:
                             for k in range(len(array)):
-                                    array[k][l] = array[k][l] - array[k][solved] * factor
+                                array[k][l] = array[k][l] - array[k][solved] * factor
                 
                 solved = solved + 1
                 break
         i = i + 1
     return array
 
+def get_non_zero_indices(esalon):
+    pass
+
+
+test = [
+    [-1, 2, -1],
+    [2, -1, 1],
+    [1, 4, -1],
+    [5, 2, 3]
+]
+print(esalon(test))
 
 if(__name__ == "__main__"):
     print(__doc__)
@@ -82,8 +95,15 @@ if(__name__ == "__main__"):
 
     replaced = []
     for vi in L:
-        es = esalon(S + [vi])
-        for i in range(s):
-            if es[i] != 0:
-                pass
-            
+        es = esalon(deepcopy(S + [vi]))
+        pos = -1
+        for i in range(len(es[-1])):
+            if es[-1][i]:
+                pos = -1
+                for j in range(len(es) - 1):
+                    if es[j][i]:
+                        pos = j
+                if pos is not -1:
+                    break
+        S[pos] = vi
+    print(S)
