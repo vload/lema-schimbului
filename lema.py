@@ -84,17 +84,16 @@ if(__name__ == "__main__"):
     replaced = []
     for vi in L:
         es = esalon(deepcopy(S + [vi]))
-        pos = -1
         for i in range(len(es[-1])):
             if es[-1][i]:
-                pos = -1
+                exit_ = False
                 for j in range(len(es) - 1):
-                    if es[j][i] and pos not in replaced:
-                        pos = j
+                    if es[j][i] and j not in replaced:
+                        exit_ = True
+                        S[j] = vi
+                        replaced.append(j)
                         break
-                if pos is not -1:
+                if exit_:
                     break
-        S[pos] = vi
-        replaced.append(pos)
         
     print(S)
