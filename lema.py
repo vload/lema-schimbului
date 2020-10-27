@@ -89,9 +89,12 @@ if(__name__ == "__main__"):
             if es[-1][i]:
                 pos = -1
                 for j in range(len(es) - 1):
-                    if es[j][i]:
+                    if es[j][i] and pos not in replaced:
                         pos = j
+                        break
                 if pos is not -1:
                     break
         S[pos] = vi
+        replaced.append[pos]
+        
     print(S)
