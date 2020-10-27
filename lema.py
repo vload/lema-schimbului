@@ -95,6 +95,6 @@ if(__name__ == "__main__"):
                 if pos is not -1:
                     break
         S[pos] = vi
-        replaced.append[pos]
+        replaced.append(pos)
         
     print(S)
