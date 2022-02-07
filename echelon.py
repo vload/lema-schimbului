@@ -1,3 +1,6 @@
+def is_almost_0(a: float):
+    return -1e-10 < a and a < 1e-10
+
 
 def get_reduced_echelon_form(matrix):
     solved_cols = 0
@@ -8,7 +11,7 @@ def get_reduced_echelon_form(matrix):
         swap_required = False
 
         # find first non-zero under active-row
-        while row < len(matrix) and matrix[row][solved_cols] == 0:
+        while row < len(matrix) and is_almost_0(matrix[row][solved_cols]):
             row = row + 1
             swap_required = True
 
@@ -24,7 +27,7 @@ def get_reduced_echelon_form(matrix):
                     matrix[active_row][col], matrix[row][col]
 
         # factor
-        if matrix[active_row][solved_cols] != 0:
+        if not is_almost_0(matrix[active_row][solved_cols]):
             factor = 1.0 / matrix[active_row][solved_cols]
             for col in range(len(matrix[active_row])):
                 matrix[active_row][col] = matrix[active_row][col] * factor
@@ -47,12 +50,24 @@ if(__name__ == "__main__"):
     with open("input.txt") as f:
         n = int(f.readline())
         m = int(f.readline())
-        M = []
+        matrix = []
 
         for i in range(n):
             temp = f.readline().split()
             temp = list(map(float, temp))
-            M.append(temp)
+            matrix.append(temp)
 
-    for row in get_reduced_echelon_form(M):
+    matrix = get_reduced_echelon_form(matrix)
+
+    # round the numbers:
+    rounded = []
+    for row in matrix:
+        new_row = []
+        for e in row:
+            new_row.append(round(e, 4))
+
+        rounded.append(new_row)
+
+    # print the rounded form
+    for row in rounded:
         print(row)
