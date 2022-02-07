@@ -24,9 +24,10 @@ def get_reduced_echelon_form(matrix):
                     matrix[active_row][col], matrix[row][col]
 
         # factor
-        factor = 1.0 / matrix[active_row][solved_cols]
-        for col in range(len(matrix[active_row])):
-            matrix[active_row][col] = matrix[active_row][col] * factor
+        if matrix[active_row][solved_cols] != 0:
+            factor = 1.0 / matrix[active_row][solved_cols]
+            for col in range(len(matrix[active_row])):
+                matrix[active_row][col] = matrix[active_row][col] * factor
 
         # difference
         for diff_row in range(len(matrix)):
@@ -48,7 +49,7 @@ if(__name__ == "__main__"):
         m = int(f.readline())
         M = []
 
-        for i in range(m):
+        for i in range(n):
             temp = f.readline().split()
             temp = list(map(float, temp))
             M.append(temp)
