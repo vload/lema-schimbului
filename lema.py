@@ -29,8 +29,9 @@ w2
 ...
 ws
 """
-
+#!/usr/bin/env python
 from copy import deepcopy
+
 
 def esalon(array):
     i = 0
@@ -38,26 +39,28 @@ def esalon(array):
     while i < len(array) and solved < len(array[i]):
         for j in range(solved, len(array[i])):
             if array[i][j] != 0:
-                if j is not solved:                          #interschimbarea liniilor
+                if j != solved:  # interschimbarea liniilor
                     for k in range(len(array)):
                         array[k][solved], array[k][j] = array[k][j], array[k][solved]
-                
-                if array[i][solved] is not 1:                #impartire la array[i][i]
+
+                if array[i][solved] != 1:  # impartire la array[i][i]
                     factor = array[i][solved]
                     for k in range(len(array)):
                         array[k][solved] = array[k][solved] / factor
-                
+
                 for l in range(len(array[i])):
-                    if l is not solved:
+                    if l != solved:
                         factor = array[i][l]
                         if factor:
                             for k in range(len(array)):
-                                array[k][l] = array[k][l] - array[k][solved] * factor
-                
+                                array[k][l] = array[k][l] - \
+                                    array[k][solved] * factor
+
                 solved = solved + 1
                 break
         i = i + 1
     return array
+
 
 if(__name__ == "__main__"):
     print(__doc__)
@@ -75,7 +78,7 @@ if(__name__ == "__main__"):
             temp = f.readline().split()
             temp = list(map(float, temp))
             L.append(temp)
-        
+
         for i in range(s):
             temp = f.readline().split()
             temp = list(map(float, temp))
@@ -95,5 +98,5 @@ if(__name__ == "__main__"):
                         break
                 if exit_:
                     break
-        
+
     print(S)

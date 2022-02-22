@@ -1,8 +1,11 @@
-def is_almost_0(a: float):
-    return -1e-10 < a and a < 1e-10
+from my_util import read_matrix
 
 
-def get_reduced_echelon_form(matrix):
+def is_almost_0(a: float, e=1e-10):
+    return -e < a and a < e
+
+
+def reduced_echelon_form(matrix, e=1e-10):
     solved_cols = 0
     active_row = 0
 
@@ -11,7 +14,7 @@ def get_reduced_echelon_form(matrix):
         swap_required = False
 
         # find first non-zero under active-row
-        while row < len(matrix) and is_almost_0(matrix[row][solved_cols]):
+        while row < len(matrix) and is_almost_0(matrix[row][solved_cols], e):
             row = row + 1
             swap_required = True
 
@@ -27,7 +30,7 @@ def get_reduced_echelon_form(matrix):
                     matrix[active_row][col], matrix[row][col]
 
         # factor
-        if not is_almost_0(matrix[active_row][solved_cols]):
+        if not is_almost_0(matrix[active_row][solved_cols], e):
             factor = 1.0 / matrix[active_row][solved_cols]
             for col in range(len(matrix[active_row])):
                 matrix[active_row][col] = matrix[active_row][col] * factor
@@ -47,17 +50,9 @@ def get_reduced_echelon_form(matrix):
 
 
 if(__name__ == "__main__"):
-    with open("input.txt") as f:
-        n = int(f.readline())
-        m = int(f.readline())
-        matrix = []
+    matrix = read_matrix("input.txt")
 
-        for i in range(n):
-            temp = f.readline().split()
-            temp = list(map(float, temp))
-            matrix.append(temp)
-
-    matrix = get_reduced_echelon_form(matrix)
+    matrix = reduced_echelon_form(matrix)
 
     # round the numbers:
     rounded = []
